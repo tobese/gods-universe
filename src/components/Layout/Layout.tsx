@@ -24,6 +24,7 @@ export function Layout() {
           <button type="button" className="random-myth-button" onClick={goToRandomMyth}>
             Random Myth
           </button>
+          <Link to="/compare">Compare Cultures</Link>
           <Link to="/about">About &amp; Sources</Link>
         </nav>
       </header>
