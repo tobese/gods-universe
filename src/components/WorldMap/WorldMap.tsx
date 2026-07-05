@@ -36,9 +36,12 @@ export function WorldMap() {
                 <stop offset="0%" stopColor="#2b5468" />
                 <stop offset="100%" stopColor="#0d1f2b" />
               </radialGradient>
-              <filter id="blob-blur" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="4.5" />
-              </filter>
+              {pantheons.map((p) => (
+                <radialGradient key={p.id} id={`region-glow-${p.id}`} cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor={p.colorTheme.primary} stopOpacity="0.65" />
+                  <stop offset="100%" stopColor={p.colorTheme.primary} stopOpacity="0" />
+                </radialGradient>
+              ))}
             </defs>
 
             <rect x="0" y="0" width="100" height="100" fill="url(#ocean-glow)" />
@@ -51,7 +54,7 @@ export function WorldMap() {
                 y1={(i + 1) * 10}
                 x2="100"
                 y2={(i + 1) * 10}
-                stroke="rgba(233, 200, 115, 0.08)"
+                stroke="rgba(233, 200, 115, 0.06)"
                 strokeWidth="0.15"
               />
             ))}
@@ -62,21 +65,27 @@ export function WorldMap() {
                 y1="0"
                 x2={(i + 1) * 8.33}
                 y2="100"
-                stroke="rgba(233, 200, 115, 0.08)"
+                stroke="rgba(233, 200, 115, 0.06)"
                 strokeWidth="0.15"
               />
             ))}
 
-            {/* soft watercolor-style region blobs, one per pantheon */}
+            {/* stylized low-poly landmasses */}
+            <g className="landmasses">
+              <polygon points="6,10 14,8 22,9 28,12 33,18 30,24 34,28 31,33 34,37 30,40 26,43 28,47 23,46 18,44 14,40 10,34 7,28 9,22 5,17" />
+              <polygon points="20,48 27,47 33,50 36,56 34,62 36,68 31,74 26,73 23,68 25,62 21,58 23,53" />
+              <polygon points="40,14 46,10 54,8 62,7 70,8 78,10 85,13 91,17 95,22 93,27 96,31 93,35 90,32 87,37 84,34 80,40 76,36 72,42 68,38 64,42 60,38 58,44 54,40 56,34 52,36 48,32 50,26 45,28 42,24 44,19" />
+              <polygon points="80,60 86,58 92,60 95,65 93,70 87,72 81,70 78,65" />
+            </g>
+
+            {/* soft region-color glow, one per pantheon */}
             {pantheons.map((p) => (
               <circle
                 key={p.id}
                 cx={p.mapPosition.x}
                 cy={p.mapPosition.y}
-                r="9"
-                fill={p.colorTheme.primary}
-                opacity="0.35"
-                filter="url(#blob-blur)"
+                r="10"
+                fill={`url(#region-glow-${p.id})`}
               />
             ))}
           </svg>
