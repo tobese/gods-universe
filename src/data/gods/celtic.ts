@@ -1,0 +1,65 @@
+import type { God } from "../../types/mythology";
+
+export const celticGods: God[] = [
+  {
+    id: "celtic-dagda",
+    name: "The Dagda",
+    akas: ["The Good God"],
+    domains: ["Fertility", "Agriculture", "Strength", "Wisdom"],
+    symbols: ["a giant club", "a bottomless cauldron"],
+    bio: "The Dagda's cauldron can feed an army without ever running empty, and his club can kill with one end and restore life with the other — a fittingly paradoxical father-figure to the Tuatha Dé Danann.",
+    family: { children: ["celtic-brigid"] },
+  },
+  {
+    id: "celtic-morrigan",
+    name: "The Morrígan",
+    akas: ["Phantom Queen"],
+    domains: ["War", "Fate", "Prophecy"],
+    symbols: ["the crow", "the raven"],
+    bio: "The Morrígan appears on battlefields as a crow, deciding who lives and who falls, and her prophecies of doom were feared by even the greatest heroes of Irish legend, including Cú Chulainn.",
+  },
+  {
+    id: "celtic-lugh",
+    name: "Lugh",
+    akas: ["Lugh Lámhfhada"],
+    domains: ["Skill", "the Sun", "Craftsmanship", "Kingship"],
+    symbols: ["a spear", "a sling"],
+    bio: "Master of every craft at once, Lugh was admitted to the court of Tara only after proving he alone combined all the skills the other gods held separately, and led the Tuatha Dé Danann to victory over the monstrous Fomorians.",
+  },
+  {
+    id: "celtic-brigid",
+    name: "Brigid",
+    domains: ["Fire", "Healing", "Poetry", "Smithcraft"],
+    symbols: ["a perpetual flame", "a reed cross"],
+    bio: "Brigid's sacred flame at Kildare was tended continuously for centuries, and her patronage of poetry, healing, and smithing was so deeply loved that her worship folded almost seamlessly into that of a later Christian saint of the same name.",
+    family: { parents: ["celtic-dagda"] },
+  },
+  {
+    id: "celtic-cernunnos",
+    name: "Cernunnos",
+    domains: ["Wild Animals", "Forests", "Fertility"],
+    symbols: ["antlers", "a torc necklace"],
+    bio: "Depicted seated cross-legged with a stag's antlers, horned Cernunnos embodies the wild, untamed forest and the animals within it, known mostly from Gaulish carvings such as the Gundestrup Cauldron.",
+  },
+  {
+    id: "celtic-danu",
+    name: "Danu",
+    domains: ["Rivers", "Fertility", "Divine Ancestry"],
+    symbols: ["flowing water"],
+    bio: "Danu is the shadowy mother-goddess for whom the entire divine race, the Tuatha Dé Danann ('People of Danu'), is named — an ancient ancestral force behind gods more vividly remembered than she is.",
+  },
+  {
+    id: "celtic-manannan",
+    name: "Manannán mac Lir",
+    domains: ["the Sea", "Weather", "the Otherworld"],
+    symbols: ["a magic ship", "a cloak of mist"],
+    bio: "Manannán ferries souls and heroes between the mortal world and the Otherworld aboard a ship that needs no sail, and his cloak of mist can hide entire islands from view.",
+  },
+  {
+    id: "celtic-epona",
+    name: "Epona",
+    domains: ["Horses", "Fertility", "Travel"],
+    symbols: ["the horse"],
+    bio: "Uniquely among Celtic deities, Epona's worship was adopted wholesale by the Roman cavalry, who built her shrines as far away as the Danube frontier to protect their horses.",
+  },
+];

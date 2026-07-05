@@ -1,0 +1,109 @@
+:root {
+  color-scheme: light;
+
+  /* parchment & ink */
+  --color-parchment: #f2e4c4;
+  --color-parchment-dark: #e2cfa0;
+  --color-parchment-shadow: #cbb488;
+  --color-ink: #2b1d0e;
+  --color-ink-soft: #4a3823;
+  --color-ink-faint: #7a6647;
+
+  /* gold accents */
+  --color-gold: #c9a24b;
+  --color-gold-bright: #e9c873;
+  --color-gold-dim: #8a6d2f;
+
+  /* ocean / sky backdrop for the map */
+  --color-ocean: #1c3a4a;
+  --color-ocean-deep: #0d1f2b;
+
+  --font-display: "Cinzel Decorative", "Cinzel", serif;
+  --font-heading: "Cinzel", serif;
+  --font-body: "EB Garamond", Georgia, serif;
+
+  --shadow-glow: 0 0 14px rgba(233, 200, 115, 0.65);
+  --shadow-panel: 0 8px 30px rgba(13, 31, 43, 0.45);
+  --radius-panel: 14px;
+  --radius-marker: 999px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at top, rgba(255, 255, 255, 0.06), transparent 60%),
+    var(--color-ocean-deep);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  letter-spacing: 0.03em;
+  color: var(--color-parchment);
+  margin: 0 0 0.5em;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: var(--font-body);
+}
+
+.parchment-texture {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(43, 29, 14, 0.03) 0px,
+      rgba(43, 29, 14, 0.03) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    radial-gradient(ellipse at 20% 20%, rgba(255, 255, 255, 0.25), transparent 55%),
+    radial-gradient(ellipse at 80% 85%, rgba(0, 0, 0, 0.08), transparent 55%);
+  background-color: var(--color-parchment);
+}
+
+.gold-divider {
+  height: 2px;
+  border: none;
+  margin: 1.2em 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold) 20%,
+    var(--color-gold-bright) 50%,
+    var(--color-gold) 80%,
+    transparent
+  );
+}
+
+.illuminated-panel {
+  border: 1px solid var(--color-gold);
+  outline: 1px solid rgba(43, 29, 14, 0.25);
+  outline-offset: -4px;
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-panel);
+}

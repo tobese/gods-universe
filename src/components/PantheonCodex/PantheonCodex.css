@@ -1,0 +1,129 @@
+.codex {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.codex__hero {
+  padding: 32px 40px 24px;
+  background:
+    radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--pantheon-primary) 55%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--pantheon-primary), var(--color-ocean-deep));
+  text-align: center;
+}
+
+.codex__back {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: var(--color-parchment);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.codex__back:hover {
+  opacity: 1;
+}
+
+.codex__hero h1 {
+  font-family: var(--font-display);
+  font-size: 40px;
+  margin-bottom: 4px;
+}
+
+.codex__hero h2 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--pantheon-accent);
+  margin-bottom: 10px;
+}
+
+.codex__landmark-blurb {
+  max-width: 560px;
+  margin: 0 auto;
+  color: var(--color-parchment);
+  opacity: 0.85;
+  font-style: italic;
+}
+
+.codex__body {
+  max-width: 960px;
+  width: calc(100% - 48px);
+  margin: -24px auto 40px;
+  padding: 32px 36px 40px;
+  color: var(--color-ink);
+  position: relative;
+}
+
+.codex__intro {
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+.codex__note {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-left: 3px solid var(--pantheon-primary);
+  background: rgba(0, 0, 0, 0.04);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--color-ink-soft);
+}
+
+.codex__roster-heading {
+  color: var(--color-ink);
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.codex__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.god-card {
+  display: block;
+  text-decoration: none;
+  color: var(--color-ink);
+  background: var(--color-parchment-dark);
+  border: 1px solid color-mix(in srgb, var(--pantheon-primary) 40%, var(--color-gold-dim));
+  border-radius: 10px;
+  padding: 14px 16px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.god-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  border-color: var(--pantheon-primary);
+}
+
+.god-card h4 {
+  margin: 0 0 6px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--pantheon-primary);
+}
+
+.god-card__domains {
+  margin: 0 0 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-ink-faint);
+}
+
+.god-card__bio {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--color-ink-soft);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

@@ -1,0 +1,67 @@
+import type { God } from "../../types/mythology";
+
+export const mesopotamianGods: God[] = [
+  {
+    id: "mesopotamian-anu",
+    name: "Anu",
+    akas: ["An"],
+    domains: ["the Sky", "Kingship of the Gods"],
+    symbols: ["a horned crown", "a star"],
+    bio: "Anu is the remote, senior-most sky-father of the Mesopotamian pantheon — less an active character in myth than the ultimate source of authority every other god's kingship derives from.",
+    family: { children: ["mesopotamian-enlil", "mesopotamian-inanna"] },
+  },
+  {
+    id: "mesopotamian-enlil",
+    name: "Enlil",
+    domains: ["Wind", "Storms", "Kingship", "Fate"],
+    symbols: ["a horned crown", "the wind"],
+    bio: "Enlil holds the Tablet of Destinies that decrees the fate of gods and mortals alike, and in the great flood myth grew so irritated by humanity's noise that he sent a deluge to silence it.",
+    family: { parents: ["mesopotamian-anu"] },
+  },
+  {
+    id: "mesopotamian-enki",
+    name: "Enki",
+    akas: ["Ea"],
+    domains: ["Fresh Water", "Wisdom", "Crafts", "Creation"],
+    symbols: ["flowing water", "a goat-fish"],
+    bio: "Enki secretly warned the hero Utnapishtim to build a boat before Enlil's flood, preserving humanity and animal life against his fellow gods' wishes — the wisest and most sympathetic of the great Mesopotamian gods.",
+  },
+  {
+    id: "mesopotamian-inanna",
+    name: "Inanna",
+    akas: ["Ishtar"],
+    domains: ["Love", "War", "Fertility", "the Morning and Evening Star"],
+    symbols: ["the eight-pointed star", "the lion"],
+    bio: "Inanna descended to the underworld to challenge her sister Ereshkigal's authority and was stripped naked and killed at its seven gates, only to be revived and escape — one of the oldest myths of death and return ever recorded.",
+    family: { parents: ["mesopotamian-anu"] },
+  },
+  {
+    id: "mesopotamian-marduk",
+    name: "Marduk",
+    domains: ["Kingship", "Storms", "Justice"],
+    symbols: ["the mušḫuššu dragon", "a spade"],
+    bio: "Marduk rose to become Babylon's chief god after slaying the primordial sea-dragon Tiamat and building the ordered cosmos from her body, cementing his city's political rise into a religious one.",
+  },
+  {
+    id: "mesopotamian-nergal",
+    name: "Nergal",
+    domains: ["Death", "Plague", "War"],
+    symbols: ["a lion-headed mace"],
+    bio: "Nergal stormed the underworld in fury after being snubbed by its queen Ereshkigal, and ended up marrying her and ruling at her side instead — war and death united in one household.",
+  },
+  {
+    id: "mesopotamian-utu",
+    name: "Utu",
+    akas: ["Shamash"],
+    domains: ["the Sun", "Justice", "Truth"],
+    symbols: ["the sun disk", "a saw"],
+    bio: "Utu travels beneath the earth each night to light the underworld, and by day sees everything under the sun — making him the natural god of oaths, contracts, and justice.",
+  },
+  {
+    id: "mesopotamian-tiamat",
+    name: "Tiamat",
+    domains: ["the Primordial Sea", "Chaos"],
+    symbols: ["a sea-dragon"],
+    bio: "Tiamat, the salt-water ocean itself, birthed the first gods before rising in monstrous fury against her own descendants — her defeat by Marduk and division into sky and earth forms the Babylonian creation epic.",
+  },
+];
