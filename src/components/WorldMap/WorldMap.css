@@ -167,6 +167,59 @@
   }
 }
 
+.sea-myth-marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-parchment);
+  z-index: 2;
+  transition: transform 0.2s ease;
+}
+
+.sea-myth-marker:hover,
+.sea-myth-marker:focus-visible {
+  transform: translate(-50%, -50%) translateY(-3px);
+  z-index: 4;
+}
+
+.sea-myth-marker__badge {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-marker);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 35% 30%, #e2cfa0, #b89f70 75%);
+  border: 1.5px solid #2b1d0e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  animation: sea-myth-ripple 3.6s ease-in-out infinite;
+}
+
+.sea-myth-marker:hover .sea-myth-marker__badge,
+.sea-myth-marker:focus-visible .sea-myth-marker__badge {
+  animation-play-state: paused;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+}
+
+.sea-myth-marker__icon {
+  width: 19px;
+  height: 19px;
+  color: #2b1d0e;
+}
+
+@keyframes sea-myth-ripple {
+  0%,
+  100% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(61, 95, 88, 0.4);
+  }
+  50% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 0 5px rgba(61, 95, 88, 0);
+  }
+}
+
 .map-marker__label {
   margin-top: 6px;
   padding: 4px 10px;
@@ -198,7 +251,9 @@
 }
 
 .map-marker:hover .map-marker__label,
-.map-marker:focus-visible .map-marker__label {
+.map-marker:focus-visible .map-marker__label,
+.sea-myth-marker:hover .map-marker__label,
+.sea-myth-marker:focus-visible .map-marker__label {
   opacity: 1;
   transform: translateY(0);
 }

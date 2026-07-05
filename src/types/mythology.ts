@@ -42,3 +42,12 @@ export interface Pantheon {
   /** optional framing/context note shown on the codex page, e.g. cultural sensitivity context */
   note?: string;
 }
+
+export interface SeaMyth {
+  id: string;
+  name: string;
+  culture: string;
+  domains: string[];
+  bio: string;
+  mapPosition: MapPosition;
+}

@@ -1,8 +1,10 @@
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { pantheons } from "../../data/pantheons";
+import { seaMyths } from "../../data/seaMyths";
 import { useMapPanZoom } from "./useMapPanZoom";
 import { landmarkIcons } from "./LandmarkIcons";
+import { seaMythIcons } from "./SeaMythIcons";
 import { CompassRose, RhumbLines, ShipDoodle } from "./MapDecorations";
 import "./WorldMap.css";
 
@@ -103,6 +105,26 @@ export function WorldMap() {
                 <span className="map-marker__label">
                   <strong>{p.landmarkName}</strong>
                   <em>{p.culture}</em>
+                </span>
+              </Link>
+            );
+          })}
+
+          {seaMyths.map((s) => {
+            const markerStyle = {
+              left: `${s.mapPosition.x}%`,
+              top: `${s.mapPosition.y}%`,
+            } as CSSProperties;
+            const SeaMythIcon = seaMythIcons[s.id];
+
+            return (
+              <Link key={s.id} to={`/sea-myth/${s.id}`} className="sea-myth-marker" style={markerStyle}>
+                <span className="sea-myth-marker__badge">
+                  {SeaMythIcon && <SeaMythIcon className="sea-myth-marker__icon" />}
+                </span>
+                <span className="map-marker__label">
+                  <strong>{s.name}</strong>
+                  <em>{s.culture}</em>
                 </span>
               </Link>
             );

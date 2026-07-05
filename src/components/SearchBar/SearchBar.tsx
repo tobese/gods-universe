@@ -1,16 +1,36 @@
 import { useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { allGods, type GodLookup } from "../../data/pantheons";
+import { allGods } from "../../data/pantheons";
+import { seaMyths } from "../../data/seaMyths";
 import "./SearchBar.css";
 
-function matches(lookup: GodLookup, query: string): boolean {
-  const q = query.toLowerCase();
-  const { god } = lookup;
-  if (god.name.toLowerCase().includes(q)) return true;
-  if (god.akas?.some((aka) => aka.toLowerCase().includes(q))) return true;
-  if (god.domains.some((domain) => domain.toLowerCase().includes(q))) return true;
-  return false;
+interface SearchResult {
+  id: string;
+  name: string;
+  culture: string;
+  domain: string;
+  path: string;
+  searchText: string;
 }
+
+const searchIndex: SearchResult[] = [
+  ...allGods.map(({ god, pantheon }) => ({
+    id: god.id,
+    name: god.name,
+    culture: pantheon.name,
+    domain: god.domains[0],
+    path: `/god/${god.id}`,
+    searchText: [god.name, ...(god.akas ?? []), ...god.domains].join(" ").toLowerCase(),
+  })),
+  ...seaMyths.map((s) => ({
+    id: s.id,
+    name: s.name,
+    culture: s.culture,
+    domain: s.domains[0],
+    path: `/sea-myth/${s.id}`,
+    searchText: [s.name, ...s.domains].join(" ").toLowerCase(),
+  })),
+];
 
 export function SearchBar() {
   const [query, setQuery] = useState("");
@@ -19,15 +39,15 @@ export function SearchBar() {
   const blurTimeout = useRef<number | undefined>(undefined);
 
   const results = useMemo(() => {
-    const trimmed = query.trim();
+    const trimmed = query.trim().toLowerCase();
     if (trimmed.length < 2) return [];
-    return allGods.filter((lookup) => matches(lookup, trimmed)).slice(0, 8);
+    return searchIndex.filter((entry) => entry.searchText.includes(trimmed)).slice(0, 8);
   }, [query]);
 
-  function goToGod(godId: string) {
+  function goToResult(path: string) {
     setQuery("");
     setIsOpen(false);
-    navigate(`/god/${godId}`);
+    navigate(path);
   }
 
   return (
@@ -35,7 +55,7 @@ export function SearchBar() {
       <input
         type="search"
         value={query}
-        placeholder="Search gods & domains…"
+        placeholder="Search gods, domains & sea myths…"
         onChange={(e) => {
           setQuery(e.target.value);
           setIsOpen(true);
@@ -46,7 +66,7 @@ export function SearchBar() {
         }}
         onKeyDown={(e) => {
           if (e.key === "Enter" && results.length > 0) {
-            goToGod(results[0].god.id);
+            goToResult(results[0].path);
           } else if (e.key === "Escape") {
             setIsOpen(false);
           }
@@ -54,19 +74,19 @@ export function SearchBar() {
       />
       {isOpen && results.length > 0 && (
         <ul className="search-bar__results">
-          {results.map(({ god, pantheon }) => (
-            <li key={god.id}>
+          {results.map((entry) => (
+            <li key={entry.path}>
               <button
                 type="button"
                 onMouseDown={(e) => {
                   e.preventDefault();
                   window.clearTimeout(blurTimeout.current);
-                  goToGod(god.id);
+                  goToResult(entry.path);
                 }}
               >
-                <span className="search-bar__name">{god.name}</span>
+                <span className="search-bar__name">{entry.name}</span>
                 <span className="search-bar__meta">
-                  {pantheon.name} · {god.domains[0]}
+                  {entry.culture} · {entry.domain}
                 </span>
               </button>
             </li>
