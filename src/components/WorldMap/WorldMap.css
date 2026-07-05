@@ -30,10 +30,74 @@
   display: block;
 }
 
-.landmasses polygon {
-  fill: #3a3324;
-  stroke: #c9a24b;
+.sea-base {
+  fill: #e2cfa0;
+}
+
+.wave-line {
+  fill: none;
+  stroke: #3d5f58;
+  stroke-width: 0.25;
+}
+
+.compass-rose__ring {
+  fill: none;
+  stroke: #2b1d0e;
+  stroke-width: 0.25;
+  opacity: 0.55;
+}
+
+.compass-rose__ring--inner {
+  stroke-width: 0.18;
+  opacity: 0.4;
+}
+
+.compass-rose__star {
+  fill: #2b1d0e;
+  opacity: 0.72;
+}
+
+.compass-rose__hub {
+  fill: #c9a24b;
+  opacity: 0.9;
+}
+
+.compass-rose__label {
+  font-family: var(--font-heading);
+  font-size: 3.4px;
+  font-weight: 600;
+  fill: #2b1d0e;
+  opacity: 0.75;
+}
+
+.rhumb-line {
+  stroke: #2b1d0e;
+  stroke-width: 0.12;
+  opacity: 0.22;
+}
+
+.ship-doodle__hull {
+  fill: #2b1d0e;
+  opacity: 0.6;
+}
+
+.ship-doodle__mast {
+  stroke: #2b1d0e;
   stroke-width: 0.3;
+  opacity: 0.6;
+}
+
+.ship-doodle__sail {
+  fill: #e2cfa0;
+  stroke: #2b1d0e;
+  stroke-width: 0.2;
+  opacity: 0.8;
+}
+
+.landmasses polygon {
+  fill: #6b5636;
+  stroke: #2b1d0e;
+  stroke-width: 0.35;
   stroke-linejoin: round;
   paint-order: fill;
 }

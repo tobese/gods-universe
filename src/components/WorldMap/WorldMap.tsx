@@ -3,7 +3,16 @@ import { Link } from "react-router-dom";
 import { pantheons } from "../../data/pantheons";
 import { useMapPanZoom } from "./useMapPanZoom";
 import { landmarkIcons } from "./LandmarkIcons";
+import { CompassRose, RhumbLines, ShipDoodle } from "./MapDecorations";
 import "./WorldMap.css";
+
+const COMPASS_CENTER = { x: 13, y: 84 };
+
+const SHIP_DOODLES = [
+  { cx: 30, cy: 20, scale: 1.4, rotation: -6 },
+  { cx: 62, cy: 60, scale: 1.2, rotation: 8 },
+  { cx: 20, cy: 68, scale: 1.1, rotation: -4 },
+];
 
 export function WorldMap() {
   const { containerRef, transform, handlers, resetView, zoomBy } = useMapPanZoom();
@@ -32,45 +41,29 @@ export function WorldMap() {
             aria-hidden="true"
           >
             <defs>
-              <radialGradient id="ocean-glow" cx="50%" cy="35%" r="75%">
-                <stop offset="0%" stopColor="#2b5468" />
-                <stop offset="100%" stopColor="#0d1f2b" />
+              <radialGradient id="sea-wash" cx="50%" cy="38%" r="75%">
+                <stop offset="0%" stopColor="#8fb6ab" stopOpacity="0.55" />
+                <stop offset="100%" stopColor="#4f7d78" stopOpacity="0.75" />
               </radialGradient>
+              <pattern id="wave-texture" width="9" height="6" patternUnits="userSpaceOnUse">
+                <path d="M0,4 Q2.25,1.5 4.5,4 T9,4" className="wave-line" />
+              </pattern>
               {pantheons.map((p) => (
                 <radialGradient key={p.id} id={`region-glow-${p.id}`} cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor={p.colorTheme.primary} stopOpacity="0.65" />
+                  <stop offset="0%" stopColor={p.colorTheme.primary} stopOpacity="0.45" />
                   <stop offset="100%" stopColor={p.colorTheme.primary} stopOpacity="0" />
                 </radialGradient>
               ))}
             </defs>
 
-            <rect x="0" y="0" width="100" height="100" fill="url(#ocean-glow)" />
+            <rect x="0" y="0" width="100" height="100" className="sea-base" />
+            <rect x="0" y="0" width="100" height="100" fill="url(#sea-wash)" />
+            <rect x="0" y="0" width="100" height="100" fill="url(#wave-texture)" opacity="0.5" />
 
-            {/* faint parallel / meridian lines for an old-atlas feel */}
-            {Array.from({ length: 9 }).map((_, i) => (
-              <line
-                key={`lat-${i}`}
-                x1="0"
-                y1={(i + 1) * 10}
-                x2="100"
-                y2={(i + 1) * 10}
-                stroke="rgba(233, 200, 115, 0.06)"
-                strokeWidth="0.15"
-              />
-            ))}
-            {Array.from({ length: 11 }).map((_, i) => (
-              <line
-                key={`lon-${i}`}
-                x1={(i + 1) * 8.33}
-                y1="0"
-                x2={(i + 1) * 8.33}
-                y2="100"
-                stroke="rgba(233, 200, 115, 0.06)"
-                strokeWidth="0.15"
-              />
-            ))}
+            <RhumbLines cx={COMPASS_CENTER.x} cy={COMPASS_CENTER.y} />
+            <CompassRose cx={COMPASS_CENTER.x} cy={COMPASS_CENTER.y} radius={7} />
 
-            {/* stylized low-poly landmasses */}
+            {/* stylized low-poly landmasses, drawn in an aged-ink style */}
             <g className="landmasses">
               <polygon points="6,10 14,8 22,9 28,12 33,18 30,24 34,28 31,33 34,37 30,40 26,43 28,47 23,46 18,44 14,40 10,34 7,28 9,22 5,17" />
               <polygon points="20,48 27,47 33,50 36,56 34,62 36,68 31,74 26,73 23,68 25,62 21,58 23,53" />
@@ -78,7 +71,7 @@ export function WorldMap() {
               <polygon points="80,60 86,58 92,60 95,65 93,70 87,72 81,70 78,65" />
             </g>
 
-            {/* soft region-color glow, one per pantheon */}
+            {/* soft region-color tint, one per pantheon */}
             {pantheons.map((p) => (
               <circle
                 key={p.id}
@@ -87,6 +80,10 @@ export function WorldMap() {
                 r="10"
                 fill={`url(#region-glow-${p.id})`}
               />
+            ))}
+
+            {SHIP_DOODLES.map((ship, i) => (
+              <ShipDoodle key={i} {...ship} />
             ))}
           </svg>
 
