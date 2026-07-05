@@ -1,7 +1,9 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import "./Layout.css";
 
 export function Layout() {
+  const location = useLocation();
+
   return (
     <>
       <header className="site-header">
@@ -14,7 +16,9 @@ export function Layout() {
         </nav>
       </header>
       <main className="site-main">
-        <Outlet />
+        <div key={location.pathname} className="page-transition">
+          <Outlet />
+        </div>
       </main>
     </>
   );

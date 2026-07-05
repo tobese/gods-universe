@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import type { Pantheon } from "../../types/mythology";
+import { landmarkIcons } from "../WorldMap/LandmarkIcons";
 import "./PantheonCodex.css";
 
 interface PantheonCodexProps {
@@ -13,6 +14,7 @@ export function PantheonCodex({ pantheon }: PantheonCodexProps) {
     "--pantheon-secondary": pantheon.colorTheme.secondary,
     "--pantheon-accent": pantheon.colorTheme.accent,
   } as CSSProperties;
+  const LandmarkIcon = landmarkIcons[pantheon.id];
 
   return (
     <div className="codex" style={themeStyle}>
@@ -20,6 +22,11 @@ export function PantheonCodex({ pantheon }: PantheonCodexProps) {
         <Link to="/" className="codex__back">
           &larr; Back to the map
         </Link>
+        {LandmarkIcon && (
+          <div className="codex__landmark-icon">
+            <LandmarkIcon />
+          </div>
+        )}
         <h1>{pantheon.name}</h1>
         <h2>{pantheon.landmarkName}</h2>
         <p className="codex__landmark-blurb">{pantheon.landmarkBlurb}</p>

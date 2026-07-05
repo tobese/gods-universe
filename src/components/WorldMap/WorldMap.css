@@ -39,28 +39,59 @@
   text-decoration: none;
   color: var(--color-parchment);
   z-index: 2;
+  transition: transform 0.2s ease;
 }
 
-.map-marker__dot {
-  width: 14px;
-  height: 14px;
+.map-marker:hover,
+.map-marker:focus-visible {
+  transform: translate(-50%, -50%) translateY(-3px);
+  z-index: 4;
+}
+
+.map-marker__badge {
+  width: 34px;
+  height: 34px;
   border-radius: var(--radius-marker);
-  background: var(--marker-color, var(--color-gold-bright));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle at 35% 30%,
+    color-mix(in srgb, var(--marker-color, var(--color-gold-bright)) 55%, white),
+    var(--marker-color, var(--color-gold-bright)) 70%
+  );
   box-shadow:
-    0 0 0 3px rgba(255, 255, 255, 0.12),
+    0 0 0 3px rgba(255, 255, 255, 0.14),
     0 0 16px 4px var(--marker-color, var(--color-gold-bright));
-  animation: marker-pulse 2.6s ease-in-out infinite;
+  animation: marker-pulse 3.2s ease-in-out infinite;
+}
+
+.map-marker:hover .map-marker__badge,
+.map-marker:focus-visible .map-marker__badge {
+  animation-play-state: paused;
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.22),
+    0 0 22px 6px var(--marker-color, var(--color-gold-bright));
+}
+
+.map-marker__icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-ink);
+  opacity: 0.85;
 }
 
 @keyframes marker-pulse {
   0%,
   100% {
-    transform: scale(1);
-    opacity: 0.9;
+    box-shadow:
+      0 0 0 3px rgba(255, 255, 255, 0.14),
+      0 0 14px 3px var(--marker-color, var(--color-gold-bright));
   }
   50% {
-    transform: scale(1.25);
-    opacity: 1;
+    box-shadow:
+      0 0 0 3px rgba(255, 255, 255, 0.2),
+      0 0 20px 6px var(--marker-color, var(--color-gold-bright));
   }
 }
 

@@ -27,6 +27,29 @@
   opacity: 1;
 }
 
+.codex__landmark-icon {
+  width: 84px;
+  height: 84px;
+  margin: 4px auto 10px;
+  border-radius: var(--radius-marker);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle at 35% 30%,
+    color-mix(in srgb, var(--pantheon-accent) 55%, white),
+    var(--pantheon-accent) 70%
+  );
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.14), 0 0 26px 6px var(--pantheon-accent);
+}
+
+.codex__landmark-icon svg {
+  width: 52px;
+  height: 52px;
+  color: var(--pantheon-primary);
+  opacity: 0.9;
+}
+
 .codex__hero h1 {
   font-family: var(--font-display);
   font-size: 40px;

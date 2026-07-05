@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { pantheons } from "../../data/pantheons";
 import { useMapPanZoom } from "./useMapPanZoom";
+import { landmarkIcons } from "./LandmarkIcons";
 import "./WorldMap.css";
 
 export function WorldMap() {
@@ -86,10 +87,13 @@ export function WorldMap() {
               top: `${p.mapPosition.y}%`,
               "--marker-color": p.colorTheme.accent,
             } as CSSProperties;
+            const LandmarkIcon = landmarkIcons[p.id];
 
             return (
               <Link key={p.id} to={`/pantheon/${p.id}`} className="map-marker" style={markerStyle}>
-                <span className="map-marker__dot" />
+                <span className="map-marker__badge">
+                  {LandmarkIcon && <LandmarkIcon className="map-marker__icon" />}
+                </span>
                 <span className="map-marker__label">
                   <strong>{p.landmarkName}</strong>
                   <em>{p.culture}</em>
