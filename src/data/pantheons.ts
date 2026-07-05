@@ -251,3 +251,7 @@ export function getGodById(id: string): GodLookup | undefined {
   }
   return undefined;
 }
+
+export const allGods: GodLookup[] = pantheons.flatMap((pantheon) =>
+  pantheon.gods.map((god) => ({ god, pantheon })),
+);

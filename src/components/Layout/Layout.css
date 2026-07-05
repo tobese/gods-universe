@@ -23,6 +23,12 @@
   color: var(--color-gold);
 }
 
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 .site-nav a {
   color: var(--color-parchment);
   text-decoration: none;
@@ -34,6 +40,24 @@
 
 .site-nav a:hover {
   border-bottom-color: var(--color-gold);
+}
+
+.random-myth-button {
+  color: var(--color-parchment);
+  background: none;
+  border: 1px solid var(--color-gold-dim);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.random-myth-button:hover {
+  background: var(--color-gold-bright);
+  color: var(--color-ink);
+  border-color: var(--color-gold-bright);
 }
 
 .site-main {
