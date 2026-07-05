@@ -5,15 +5,18 @@ import { seaMyths } from "../../data/seaMyths";
 import { useMapPanZoom } from "./useMapPanZoom";
 import { landmarkIcons } from "./LandmarkIcons";
 import { seaMythIcons } from "./SeaMythIcons";
-import { CompassRose, RhumbLines, ShipDoodle } from "./MapDecorations";
+import { CompassRose, RhumbLines, ParchmentFrame } from "./MapDecorations";
+import { LAND_PATH } from "./landPaths";
 import "./WorldMap.css";
 
 const COMPASS_CENTER = { x: 13, y: 84 };
 
-const SHIP_DOODLES = [
-  { cx: 30, cy: 20, scale: 1.4, rotation: -6 },
-  { cx: 62, cy: 60, scale: 1.2, rotation: 8 },
-  { cx: 20, cy: 68, scale: 1.1, rotation: -4 },
+/* Period ocean names, lettered the way old charts labelled open water. */
+const SEA_LABELS = [
+  { text: "Mare Pacificum", x: 12, y: 33, rotate: -4 },
+  { text: "Oceanus Atlanticus", x: 38, y: 47, rotate: -12 },
+  { text: "Oceanus Indicus", x: 66, y: 56, rotate: 5 },
+  { text: "Terra Australis Incognita", x: 50, y: 93, rotate: 0 },
 ];
 
 export function WorldMap() {
@@ -43,34 +46,50 @@ export function WorldMap() {
             aria-hidden="true"
           >
             <defs>
-              <radialGradient id="sea-wash" cx="50%" cy="38%" r="75%">
-                <stop offset="0%" stopColor="#8fb6ab" stopOpacity="0.55" />
-                <stop offset="100%" stopColor="#4f7d78" stopOpacity="0.75" />
+              <radialGradient id="sea-wash" cx="50%" cy="42%" r="80%">
+                <stop offset="0%" stopColor="#ecdab2" />
+                <stop offset="60%" stopColor="#e3cda2" />
+                <stop offset="100%" stopColor="#d2b382" />
               </radialGradient>
-              <pattern id="wave-texture" width="9" height="6" patternUnits="userSpaceOnUse">
-                <path d="M0,4 Q2.25,1.5 4.5,4 T9,4" className="wave-line" />
+              <pattern id="wave-texture" width="18" height="12" patternUnits="userSpaceOnUse">
+                <path d="M1,3 q1.6,-1.3 3.2,0 q1.6,1.3 3.2,0" className="wave-line" />
+                <path d="M10,9 q1.6,-1.3 3.2,0 q1.6,1.3 3.2,0" className="wave-line" />
               </pattern>
+              {/* mottled foxing that makes the sheet read as aged vellum */}
+              <filter id="parchment-mottle" x="0%" y="0%" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.05 0.08" numOctaves="3" seed="11" result="noise" />
+                <feColorMatrix
+                  in="noise"
+                  type="matrix"
+                  values="0 0 0 0 0.42  0 0 0 0 0.30  0 0 0 0 0.13  0.9 0.9 0 0 -0.9"
+                />
+              </filter>
+              {/* slight wobble so the coastline reads as hand-inked */}
+              <filter id="hand-inked" x="-3%" y="-3%" width="106%" height="106%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.12" numOctaves="2" seed="4" result="wobble" />
+                <feDisplacementMap in="SourceGraphic" in2="wobble" scale="0.7" />
+              </filter>
               {pantheons.map((p) => (
                 <radialGradient key={p.id} id={`region-glow-${p.id}`} cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor={p.colorTheme.primary} stopOpacity="0.45" />
+                  <stop offset="0%" stopColor={p.colorTheme.primary} stopOpacity="0.32" />
                   <stop offset="100%" stopColor={p.colorTheme.primary} stopOpacity="0" />
                 </radialGradient>
               ))}
             </defs>
 
-            <rect x="0" y="0" width="100" height="100" className="sea-base" />
             <rect x="0" y="0" width="100" height="100" fill="url(#sea-wash)" />
-            <rect x="0" y="0" width="100" height="100" fill="url(#wave-texture)" opacity="0.5" />
+            <rect x="0" y="0" width="100" height="100" filter="url(#parchment-mottle)" opacity="0.14" />
+            <rect x="0" y="0" width="100" height="100" fill="url(#wave-texture)" opacity="0.45" />
 
             <RhumbLines cx={COMPASS_CENTER.x} cy={COMPASS_CENTER.y} />
-            <CompassRose cx={COMPASS_CENTER.x} cy={COMPASS_CENTER.y} radius={7} />
 
-            {/* stylized low-poly landmasses, drawn in an aged-ink style */}
-            <g className="landmasses">
-              <polygon points="6,10 14,8 22,9 28,12 33,18 30,24 34,28 31,33 34,37 30,40 26,43 28,47 23,46 18,44 14,40 10,34 7,28 9,22 5,17" />
-              <polygon points="20,48 27,47 33,50 36,56 34,62 36,68 31,74 26,73 23,68 25,62 21,58 23,53" />
-              <polygon points="40,14 46,10 54,8 62,7 70,8 78,10 85,13 91,17 95,22 93,27 96,31 93,35 90,32 87,37 84,34 80,40 76,36 72,42 68,38 64,42 60,38 58,44 54,40 56,34 52,36 48,32 50,26 45,28 42,24 44,19" />
-              <polygon points="80,60 86,58 92,60 95,65 93,70 87,72 81,70 78,65" />
+            {/* real coastlines (Natural Earth), engraved-chart treatment:
+                graded coastal shading under a hand-inked outline */}
+            <g filter="url(#hand-inked)">
+              <path d={LAND_PATH} className="coast-shade coast-shade--far" />
+              <path d={LAND_PATH} className="coast-shade coast-shade--mid" />
+              <path d={LAND_PATH} className="coast-shade coast-shade--near" />
+              <path d={LAND_PATH} className="landmass" />
             </g>
 
             {/* soft region-color tint, one per pantheon */}
@@ -79,14 +98,35 @@ export function WorldMap() {
                 key={p.id}
                 cx={p.mapPosition.x}
                 cy={p.mapPosition.y}
-                r="10"
+                r="9"
                 fill={`url(#region-glow-${p.id})`}
               />
             ))}
+          </svg>
 
-            {SHIP_DOODLES.map((ship, i) => (
-              <ShipDoodle key={i} {...ship} />
-            ))}
+          {SEA_LABELS.map((label) => (
+            <span
+              key={label.text}
+              className="sea-label"
+              style={{
+                left: `${label.x}%`,
+                top: `${label.y}%`,
+                transform: `translate(-50%, -50%) rotate(${label.rotate}deg)`,
+              }}
+              aria-hidden="true"
+            >
+              {label.text}
+            </span>
+          ))}
+
+          {/* compass in its own square SVG so the rings stay circular */}
+          <svg
+            className="compass-overlay"
+            viewBox="0 0 100 100"
+            style={{ left: `${COMPASS_CENTER.x}%`, top: `${COMPASS_CENTER.y}%` }}
+            aria-hidden="true"
+          >
+            <CompassRose cx={50} cy={53} radius={31} />
           </svg>
 
           {pantheons.map((p) => {
@@ -119,7 +159,7 @@ export function WorldMap() {
 
             return (
               <Link key={s.id} to={`/sea-myth/${s.id}`} className="sea-myth-marker" style={markerStyle}>
-                <span className="sea-myth-marker__badge">
+                <span className="sea-myth-marker__figure">
                   {SeaMythIcon && <SeaMythIcon className="sea-myth-marker__icon" />}
                 </span>
                 <span className="map-marker__label">
@@ -130,6 +170,8 @@ export function WorldMap() {
             );
           })}
         </div>
+
+        <ParchmentFrame />
       </div>
 
       <div className="map-controls illuminated-panel parchment-texture">

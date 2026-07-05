@@ -2,6 +2,7 @@
   position: relative;
   flex: 1;
   display: flex;
+  background: var(--color-ocean-deep);
 }
 
 .map-viewport {
@@ -30,76 +31,173 @@
   display: block;
 }
 
-.sea-base {
-  fill: #e2cfa0;
-}
-
 .wave-line {
   fill: none;
-  stroke: #3d5f58;
-  stroke-width: 0.25;
+  stroke: #8a6f43;
+  stroke-width: 0.22;
+  stroke-linecap: round;
+}
+
+/* engraved coastal shading: repeated strokes fading out to sea */
+.coast-shade {
+  fill: none;
+  stroke: #6b4a23;
+  stroke-linejoin: round;
+}
+
+.coast-shade--far {
+  stroke-width: 2.4;
+  opacity: 0.1;
+}
+
+.coast-shade--mid {
+  stroke-width: 1.4;
+  opacity: 0.14;
+}
+
+.coast-shade--near {
+  stroke-width: 0.7;
+  opacity: 0.22;
+}
+
+.landmass {
+  fill: #d8bc8c;
+  stroke: #3a2a16;
+  stroke-width: 0.22;
+  stroke-linejoin: round;
+}
+
+.sea-label {
+  position: absolute;
+  font-family: var(--font-heading);
+  font-size: clamp(11px, 1.4vw, 18px);
+  font-style: italic;
+  letter-spacing: 0.32em;
+  white-space: nowrap;
+  color: #5c452a;
+  opacity: 0.55;
+  pointer-events: none;
+  user-select: none;
+}
+
+.compass-overlay {
+  position: absolute;
+  width: clamp(110px, 13vw, 170px);
+  height: clamp(110px, 13vw, 170px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  overflow: visible;
 }
 
 .compass-rose__ring {
   fill: none;
   stroke: #2b1d0e;
-  stroke-width: 0.25;
-  opacity: 0.55;
+  stroke-width: 0.7;
+  opacity: 0.6;
+}
+
+.compass-rose__ring--band {
+  stroke-width: 0.4;
+  opacity: 0.35;
 }
 
 .compass-rose__ring--inner {
-  stroke-width: 0.18;
-  opacity: 0.4;
+  stroke-width: 0.5;
+  opacity: 0.45;
 }
 
-.compass-rose__star {
+.compass-rose__tick {
+  stroke: #2b1d0e;
+  stroke-width: 0.5;
+  opacity: 0.5;
+}
+
+.compass-rose__tick--major {
+  stroke-width: 1;
+  opacity: 0.7;
+}
+
+.compass-rose__diamond {
+  fill: #8a6d2f;
+  opacity: 0.85;
+}
+
+.compass-rose__point-dark {
   fill: #2b1d0e;
-  opacity: 0.72;
+  opacity: 0.85;
+}
+
+.compass-rose__point-light {
+  fill: #f2e4c4;
+  stroke: #2b1d0e;
+  stroke-width: 0.35;
+  opacity: 0.9;
 }
 
 .compass-rose__hub {
+  fill: #2b1d0e;
+}
+
+.compass-rose__hub-dot {
   fill: #c9a24b;
-  opacity: 0.9;
+}
+
+.compass-rose__fleur {
+  fill: #2b1d0e;
+  opacity: 0.88;
 }
 
 .compass-rose__label {
   font-family: var(--font-heading);
-  font-size: 3.4px;
+  font-size: 7px;
   font-weight: 600;
   fill: #2b1d0e;
-  opacity: 0.75;
+  opacity: 0.8;
 }
 
 .rhumb-line {
   stroke: #2b1d0e;
-  stroke-width: 0.12;
-  opacity: 0.22;
+  stroke-width: 0.1;
+  opacity: 0.16;
 }
 
-.ship-doodle__hull {
-  fill: #2b1d0e;
-  opacity: 0.6;
+/* parchment sheet edges: torn, scorched, curling at two corners */
+.parchment-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 6;
 }
 
-.ship-doodle__mast {
-  stroke: #2b1d0e;
-  stroke-width: 0.3;
-  opacity: 0.6;
+.frame-void {
+  fill: var(--color-ocean-deep);
 }
 
-.ship-doodle__sail {
-  fill: #e2cfa0;
-  stroke: #2b1d0e;
-  stroke-width: 0.2;
-  opacity: 0.8;
-}
-
-.landmasses polygon {
-  fill: #6b5636;
-  stroke: #2b1d0e;
-  stroke-width: 0.35;
+.frame-burn {
+  fill: none;
+  stroke: #3a2410;
+  stroke-width: 5;
   stroke-linejoin: round;
-  paint-order: fill;
+  opacity: 0.4;
+}
+
+.frame-burn--wide {
+  stroke-width: 14;
+  opacity: 0.18;
+}
+
+.curl-shadow {
+  fill: none;
+  stroke: #120c05;
+  stroke-width: 12;
+  opacity: 0.5;
+}
+
+.curl-flap {
+  stroke: #3a2a16;
+  stroke-width: 1.2;
 }
 
 .map-marker {
@@ -167,6 +265,7 @@
   }
 }
 
+/* sea monsters are inked straight onto the chart, no badge */
 .sea-myth-marker {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -181,43 +280,28 @@
 
 .sea-myth-marker:hover,
 .sea-myth-marker:focus-visible {
-  transform: translate(-50%, -50%) translateY(-3px);
+  transform: translate(-50%, -50%) scale(1.15);
   z-index: 4;
 }
 
-.sea-myth-marker__badge {
-  width: 30px;
-  height: 30px;
-  border-radius: var(--radius-marker);
+.sea-myth-marker__figure {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 35% 30%, #e2cfa0, #b89f70 75%);
-  border: 1.5px solid #2b1d0e;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
-  animation: sea-myth-ripple 3.6s ease-in-out infinite;
-}
-
-.sea-myth-marker:hover .sea-myth-marker__badge,
-.sea-myth-marker:focus-visible .sea-myth-marker__badge {
-  animation-play-state: paused;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
 }
 
 .sea-myth-marker__icon {
-  width: 19px;
-  height: 19px;
-  color: #2b1d0e;
+  width: 64px;
+  height: 48px;
+  color: #33230f;
+  opacity: 0.9;
+  filter: drop-shadow(0.5px 0.7px 0 rgba(246, 233, 200, 0.55));
+  transition: opacity 0.2s ease;
 }
 
-@keyframes sea-myth-ripple {
-  0%,
-  100% {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(61, 95, 88, 0.4);
-  }
-  50% {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 0 5px rgba(61, 95, 88, 0);
-  }
+.sea-myth-marker:hover .sea-myth-marker__icon,
+.sea-myth-marker:focus-visible .sea-myth-marker__icon {
+  opacity: 1;
 }
 
 .map-marker__label {
@@ -265,7 +349,7 @@
   display: flex;
   gap: 6px;
   padding: 8px;
-  z-index: 3;
+  z-index: 7;
 }
 
 .map-controls button {
@@ -281,4 +365,10 @@
 
 .map-controls button:hover {
   background: var(--color-gold-bright);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-marker__badge {
+    animation: none;
+  }
 }
