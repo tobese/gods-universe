@@ -96,10 +96,40 @@
   color: var(--color-ink-soft);
 }
 
+.codex__roster-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
 .codex__roster-heading {
   color: var(--color-ink);
   font-size: 22px;
-  margin-bottom: 16px;
+  margin: 0;
+}
+
+.codex__graph-toggle {
+  background: none;
+  border: 1px solid var(--pantheon-primary);
+  color: var(--pantheon-primary);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.codex__graph-toggle:hover {
+  background: var(--pantheon-primary);
+  color: var(--color-parchment);
+}
+
+.codex__graph-loading {
+  padding: 40px;
+  text-align: center;
+  color: var(--color-ink-faint);
+  font-style: italic;
 }
 
 .codex__grid {

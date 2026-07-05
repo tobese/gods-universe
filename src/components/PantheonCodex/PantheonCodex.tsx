@@ -1,14 +1,20 @@
+import { lazy, Suspense, useState } from "react";
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import type { Pantheon } from "../../types/mythology";
 import { landmarkIcons } from "../WorldMap/LandmarkIcons";
 import "./PantheonCodex.css";
 
+const FamilyGraph = lazy(() =>
+  import("../FamilyGraph/FamilyGraph").then((m) => ({ default: m.FamilyGraph })),
+);
+
 interface PantheonCodexProps {
   pantheon: Pantheon;
 }
 
 export function PantheonCodex({ pantheon }: PantheonCodexProps) {
+  const [showGraph, setShowGraph] = useState(false);
   const themeStyle = {
     "--pantheon-primary": pantheon.colorTheme.primary,
     "--pantheon-secondary": pantheon.colorTheme.secondary,
@@ -39,7 +45,19 @@ export function PantheonCodex({ pantheon }: PantheonCodexProps) {
 
         <hr className="gold-divider" />
 
-        <h3 className="codex__roster-heading">The Pantheon</h3>
+        <div className="codex__roster-header">
+          <h3 className="codex__roster-heading">The Pantheon</h3>
+          <button type="button" className="codex__graph-toggle" onClick={() => setShowGraph((v) => !v)}>
+            {showGraph ? "Hide Family Tree" : "View Family Tree"}
+          </button>
+        </div>
+
+        {showGraph && (
+          <Suspense fallback={<div className="codex__graph-loading">Loading family tree…</div>}>
+            <FamilyGraph pantheon={pantheon} />
+          </Suspense>
+        )}
+
         <div className="codex__grid">
           {pantheon.gods.map((god) => (
             <Link key={god.id} to={`/god/${god.id}`} className="god-card">
