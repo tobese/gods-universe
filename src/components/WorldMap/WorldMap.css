@@ -67,6 +67,121 @@
   stroke-linejoin: round;
 }
 
+/* Tolkien-style hand-drawn terrain */
+.mountain__body {
+  fill: #ddc494;
+  stroke: #3a2a16;
+  stroke-width: 0.13;
+  stroke-linejoin: round;
+}
+
+.mountain__shade {
+  fill: #3a2a16;
+  opacity: 0.24;
+}
+
+/* permanent snow cap on the high peaks */
+.mountain__snow {
+  fill: #f4efe2;
+  stroke: #3a2a16;
+  stroke-width: 0.06;
+  stroke-linejoin: round;
+  opacity: 0.92;
+}
+
+/* pale ice sheets over Greenland and Antarctica */
+.ice-sheet {
+  fill: #e9f1f4;
+  stroke: #7f9fae;
+  stroke-width: 0.14;
+  stroke-linejoin: round;
+  opacity: 0.92;
+}
+
+.ice-fleck {
+  fill: none;
+  stroke: #93b0bf;
+  stroke-width: 0.09;
+  stroke-linecap: round;
+  opacity: 0.5;
+}
+
+/* rainforest palms */
+.palm-trunk {
+  fill: none;
+  stroke: #4a3a1e;
+  stroke-width: 0.09;
+  stroke-linecap: round;
+  opacity: 0.8;
+}
+
+.palm-frond {
+  fill: none;
+  stroke: #4f6b34;
+  stroke-width: 0.09;
+  stroke-linecap: round;
+  opacity: 0.82;
+}
+
+.lake {
+  fill: #e9d7ae;
+  stroke: #3a2a16;
+  stroke-width: 0.12;
+  stroke-linejoin: round;
+}
+
+.lake-wave {
+  fill: none;
+  stroke: #8a6f43;
+  stroke-width: 0.1;
+  stroke-linecap: round;
+  opacity: 0.6;
+}
+
+.nessie {
+  fill: none;
+  stroke: #3a2a16;
+  stroke-width: 0.09;
+  stroke-linecap: round;
+  opacity: 0.85;
+}
+
+.river {
+  fill: none;
+  stroke: #3a2a16;
+  stroke-width: 0.13;
+  stroke-linecap: round;
+  opacity: 0.62;
+}
+
+.tree-trunk {
+  fill: none;
+  stroke: #3a2a16;
+  stroke-width: 0.1;
+  stroke-linecap: round;
+  opacity: 0.75;
+}
+
+.tree-canopy {
+  fill: #75804a;
+  stroke: #3a2a16;
+  stroke-width: 0.08;
+  opacity: 0.78;
+}
+
+.desert-dot {
+  fill: #8a6a3a;
+  opacity: 0.5;
+}
+
+.dune {
+  fill: none;
+  stroke: #8a6a3a;
+  stroke-width: 0.11;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+
 .sea-label {
   position: absolute;
   font-family: var(--font-heading);
@@ -78,6 +193,12 @@
   opacity: 0.55;
   pointer-events: none;
   user-select: none;
+}
+
+.sea-label--terrain {
+  font-size: clamp(8px, 0.85vw, 12px);
+  letter-spacing: 0.2em;
+  opacity: 0.5;
 }
 
 .compass-overlay {

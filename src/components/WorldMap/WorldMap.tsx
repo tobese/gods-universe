@@ -6,6 +6,7 @@ import { useMapPanZoom } from "./useMapPanZoom";
 import { landmarkIcons } from "./LandmarkIcons";
 import { seaMythIcons } from "./SeaMythIcons";
 import { CompassRose, RhumbLines, ParchmentFrame } from "./MapDecorations";
+import { TerrainFeatures } from "./TerrainFeatures";
 import { LAND_PATH } from "./landPaths";
 import "./WorldMap.css";
 
@@ -17,6 +18,14 @@ const SEA_LABELS = [
   { text: "Oceanus Atlanticus", x: 38, y: 47, rotate: -12 },
   { text: "Oceanus Indicus", x: 66, y: 56, rotate: 5 },
   { text: "Terra Australis Incognita", x: 50, y: 93, rotate: 0 },
+];
+
+/* Terrain callouts, named the way Bilbo would have lettered them. */
+const TERRAIN_LABELS = [
+  { text: "Corona Mundi", x: 73, y: 29.4, rotate: -2 },
+  { text: "Spina Draconis", x: 27.4, y: 61, rotate: -83 },
+  { text: "Mare Arenae", x: 53, y: 37.2, rotate: -1.5 },
+  { text: "Silva Sine Fine", x: 32.8, y: 55.9, rotate: 2 },
 ];
 
 export function WorldMap() {
@@ -69,12 +78,11 @@ export function WorldMap() {
                 <feTurbulence type="fractalNoise" baseFrequency="0.12" numOctaves="2" seed="4" result="wobble" />
                 <feDisplacementMap in="SourceGraphic" in2="wobble" scale="0.7" />
               </filter>
-              {pantheons.map((p) => (
-                <radialGradient key={p.id} id={`region-glow-${p.id}`} cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor={p.colorTheme.primary} stopOpacity="0.32" />
-                  <stop offset="100%" stopColor={p.colorTheme.primary} stopOpacity="0" />
-                </radialGradient>
-              ))}
+              {/* stronger, softer wobble so terrain edges read fuzzier / hand-drawn */}
+              <filter id="terrain-fuzz" x="-4%" y="-4%" width="108%" height="108%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.09 0.11" numOctaves="3" seed="7" result="wobble" />
+                <feDisplacementMap in="SourceGraphic" in2="wobble" scale="1.3" />
+              </filter>
             </defs>
 
             <rect x="0" y="0" width="100" height="100" fill="url(#sea-wash)" />
@@ -92,17 +100,26 @@ export function WorldMap() {
               <path d={LAND_PATH} className="landmass" />
             </g>
 
-            {/* soft region-color tint, one per pantheon */}
-            {pantheons.map((p) => (
-              <circle
-                key={p.id}
-                cx={p.mapPosition.x}
-                cy={p.mapPosition.y}
-                r="9"
-                fill={`url(#region-glow-${p.id})`}
-              />
-            ))}
+            {/* hand-drawn terrain: mountain chains, rivers, forests, deserts */}
+            <g filter="url(#terrain-fuzz)">
+              <TerrainFeatures />
+            </g>
           </svg>
+
+          {TERRAIN_LABELS.map((label) => (
+            <span
+              key={label.text}
+              className="sea-label sea-label--terrain"
+              style={{
+                left: `${label.x}%`,
+                top: `${label.y}%`,
+                transform: `translate(-50%, -50%) rotate(${label.rotate}deg)`,
+              }}
+              aria-hidden="true"
+            >
+              {label.text}
+            </span>
+          ))}
 
           {SEA_LABELS.map((label) => (
             <span
