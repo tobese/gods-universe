@@ -5,6 +5,7 @@ import { PantheonPage } from "./pages/PantheonPage";
 import { GodPage } from "./pages/GodPage";
 import { ComparePage } from "./pages/ComparePage";
 import { SeaMythPage } from "./pages/SeaMythPage";
+import { LandMythPage } from "./pages/LandMythPage";
 import { AboutPage } from "./pages/AboutPage";
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="god/:godId" element={<GodPage />} />
         <Route path="compare" element={<ComparePage />} />
         <Route path="sea-myth/:seaMythId" element={<SeaMythPage />} />
+        <Route path="land-myth/:landMythId" element={<LandMythPage />} />
         <Route path="about" element={<AboutPage />} />
       </Route>
     </Routes>

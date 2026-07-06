@@ -7,7 +7,7 @@ export const seaMyths: SeaMyth[] = [
     culture: "Norwegian / Scandinavian",
     domains: ["Sea Monster", "Sailors' Dread", "the Deep"],
     bio: "Said to lurk off the coasts of Norway and Greenland, the Kraken was so vast that sailors sometimes mistook its surfacing back for a new island. Its favored trick was dragging entire ships beneath the waves with tentacles thick as ship masts — though it was also said to stir up shoals of fish so rich that some captains dared to fish directly above it.",
-    mapPosition: { x: 42.5, y: 14.5 },
+    mapPosition: { x: 50, y: 13 },
   },
   {
     id: "jormungandr-sea",

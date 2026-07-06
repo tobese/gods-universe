@@ -152,16 +152,29 @@ function mulberry32(seed: number) {
 
 function tornEdgePath(inset: number, step: number, jitter: number, seed: number) {
   const rand = mulberry32(seed);
-  const j = () => (rand() - 0.5) * 2 * jitter;
+  const j = (m = 1) => (rand() - 0.5) * 2 * jitter * m;
+  const crag = () => (rand() > 0.78 ? (rand() > 0.5 ? -1 : 1) * (6 + rand() * 20) : 0);
   const pts: string[] = [];
-  for (let x = inset; x <= FRAME_W - inset; x += step) pts.push(`${x + j()},${inset + j()}`);
-  for (let y = inset; y <= FRAME_H - inset; y += step) pts.push(`${FRAME_W - inset + j()},${y + j()}`);
-  for (let x = FRAME_W - inset; x >= inset; x -= step) pts.push(`${x + j()},${FRAME_H - inset + j()}`);
-  for (let y = FRAME_H - inset; y >= inset; y -= step) pts.push(`${inset + j()},${y + j()}`);
+  for (let x = inset; x <= FRAME_W - inset; x += step + (rand() > 0.7 ? rand() * step : 0)) {
+    const c = crag();
+    pts.push(`${x + j(1.2) + c},${inset + j(1.3) + Math.abs(c) * 0.35}`);
+  }
+  for (let y = inset; y <= FRAME_H - inset; y += step + (rand() > 0.7 ? rand() * step : 0)) {
+    const c = crag();
+    pts.push(`${FRAME_W - inset + j(1.2) - Math.abs(c) * 0.35},${y + j(1.3) + c}`);
+  }
+  for (let x = FRAME_W - inset; x >= inset; x -= step + (rand() > 0.7 ? rand() * step : 0)) {
+    const c = crag();
+    pts.push(`${x + j(1.2) + c},${FRAME_H - inset + j(1.3) - Math.abs(c) * 0.35}`);
+  }
+  for (let y = FRAME_H - inset; y >= inset; y -= step + (rand() > 0.7 ? rand() * step : 0)) {
+    const c = crag();
+    pts.push(`${inset + j(1.2) - Math.abs(c) * 0.35},${y + j(1.3) + c}`);
+  }
   return `M${pts.join("L")}Z`;
 }
 
-const TORN_EDGE = tornEdgePath(20, 46, 9, 1988);
+const TORN_EDGE = tornEdgePath(20, 28, 18, 1988);
 
 export function ParchmentFrame() {
   return (

@@ -375,6 +375,79 @@ const ICE_FLECKS = ICE_SHEETS.filter((s) => s.pts > 40).flatMap((s, si) => {
   });
 });
 
+/* --------------------------- polar bears & penguins --------------------- */
+
+/* Hand-drawn polar bear silhouette — scaled for the 100×100 map viewBox. */
+function polarBear(cx: number, cy: number, s = 1) {
+  const x = cx, y = cy;
+  const w = 1.8 * s, h = 2.2 * s;
+  return (
+    <g key={`bear-${cx}-${cy}`}>
+      <path
+        d={`M${f(x - w * 0.3)},${f(y)} C${f(x - w * 0.35)},${f(y - h * 0.35)} ${f(x - w * 0.2)},${f(y - h * 0.65)} ${f(x)},${f(y - h * 0.6)} C${f(x + w * 0.25)},${f(y - h * 0.65)} ${f(x + w * 0.4)},${f(y - h * 0.35)} ${f(x + w * 0.35)},${f(y)} Z`}
+        className="ice-sheet"
+        fill="#d8bc8c"
+        strokeWidth={0.12}
+      />
+      <circle cx={f(x - w * 0.12)} cy={f(y - h * 0.45)} r={0.15} fill="#3a2a16" stroke="none" />
+      <circle cx={f(x + w * 0.15)} cy={f(y - h * 0.45)} r={0.15} fill="#3a2a16" stroke="none" />
+      <circle cx={f(x - w * 0.12)} cy={f(y - h * 0.45)} r={0.06} fill="none" stroke="none" />
+      <circle cx={f(x + w * 0.15)} cy={f(y - h * 0.45)} r={0.06} fill="none" stroke="none" />
+      <path d={`M${f(x - w * 0.03)},${f(y - h * 0.25)} Q${f(x)},${f(y - h * 0.18)} ${f(x + w * 0.06)},${f(y - h * 0.25)}`} fill="none" className="river" strokeWidth={0.1} />
+    </g>
+  );
+}
+
+/* Hand-drawn penguin silhouette — scaled for the 100×100 map viewBox. */
+function penguin(cx: number, cy: number, s = 1) {
+  const x = cx, y = cy;
+  const w = 1.2 * s, h = 2 * s;
+  return (
+    <g key={`peng-${cx}-${cy}`}>
+      <ellipse cx={f(x)} cy={f(y - h * 0.5)} rx={w * 0.4} ry={h * 0.45} fill="#d8bc8c" className="lake" strokeWidth={0.1} />
+      <ellipse cx={f(x)} cy={f(y - h * 0.5)} rx={w * 0.25} ry={h * 0.35} fill="#e8d5ab" stroke="none" opacity={0.5} />
+      <path d={`M${f(x - w * 0.05)},${f(y)} L${f(x - w * 0.05)},${f(y - h * 0.9)} M${f(x + w * 0.05)},${f(y)} L${f(x + w * 0.05)},${f(y - h * 0.9)}`} className="palm-trunk" strokeWidth={0.1} />
+      <circle cx={f(x)} cy={f(y - h * 0.75)} r={0.2} fill="#3a2a16" stroke="none" />
+      <path d={`M${f(x - w * 0.15)},${f(y - h * 0.25)} Q${f(x)},${f(y - h * 0.18)} ${f(x + w * 0.15)},${f(y - h * 0.25)}`} fill="none" className="river" strokeWidth={0.08} />
+    </g>
+  );
+}
+
+const BEAR_POSITIONS = [
+  [35.5, 90.5],
+  [42.0, 93.0],
+  [32.0, 92.5],
+  [47.0, 91.0],
+];
+const ARCTIC_BEARS = BEAR_POSITIONS.map(([x, y]) => polarBear(x, y, 0.6 + 0.15 * Math.random()));
+
+/* Arctic pack ice — a broad, ragged-edge patch at the top of the map
+   where the Arctic Ocean would be, with irregular jagged coastline like
+   Antarctica's southern edge. */
+const ARCTIC_ICE_D =
+  "M18,2 l2.5,-0.8 l1.8,0.3 l3.2,-0.6 l2.1,0.5 l2.8,-0.4 l1.5,0.6 l3.5,-0.3 l2,0.4 l2.4,-0.2 l1.8,0.5 l3,-0.6 l2.2,-0.1 l3,0.3 l2.5,-0.5 l2.8,0.2 l2,-0.3 l3.2,0.5 l2,-0.1 l1.5,0.4 l2,-0.3 l1.5,0.6 l1.2,-0.2 l1.8,0.8 l-0.8,1.2 l-1.2,0.6 l-1.5,0.4 l-2.2,0.5 l-1.8,0.2 l-3,0.4 l-2.5,0.2 l-3.5,-0.1 l-2.2,0.3 l-1.5,-0.2 l-2.8,0.4 l-2,-0.3 l-2.5,0.3 l-1.8,-0.2 l-2.2,0.5 l-2.5,0 l-2,-0.3 l-1.5,0.2 l-2.8,-0.2 l-2.2,0.4 l-4,-0.6 l-1.5,0.2 l-2,-0.4 l-3.5,-0.2 l-2.5,-0.5 l-1.2,-0.8 l-2,-0.6 l-0.5,-1.2 l0.8,-0.8 l1.5,-0.5 l2.8,-0.6 l2.2,-0.2 l3,-0.4 Z";
+
+const ARCTIC_FLECKS = Array.from({ length: 30 }, (_, i) => {
+  const x = 22 + Math.random() * 26;
+  const y = Math.random() * 3.5;
+  const w = 0.15 + Math.random() * 0.35;
+  return {
+    key: `arctic-fleck-${i}`,
+    clip: "arctic-ice",
+    d: `M${f(x - w)},${f(y)} q${f(w)},-0.1 ${f(w * 2)},0`,
+  };
+});
+
+/* Penguins in the far north — scattered across the Arctic ice. */
+const ARCTIC_PENGUINS = [
+  [27.0, 2.2],
+  [33.5, 1.8],
+  [29.0, 4.5],
+  [38.0, 2.5],
+  [35.0, 4.0],
+  [42.0, 1.2],
+].map(([x, y]) => penguin(x, y, 0.5 * (0.85 + Math.random() * 0.3)));
+
 /* ---------------------------------- component --------------------------- */
 
 export function TerrainFeatures() {
@@ -386,6 +459,9 @@ export function TerrainFeatures() {
             <path d={s.d} />
           </clipPath>
         ))}
+        <clipPath id="clip-arctic-ice">
+          <path d={ARCTIC_ICE_D} />
+        </clipPath>
       </defs>
 
       {/* frozen ice sheets, drawn under everything else */}
@@ -395,6 +471,18 @@ export function TerrainFeatures() {
       {ICE_FLECKS.map((fl) => (
         <path key={fl.key} d={fl.d} className="ice-fleck" clipPath={`url(#clip-${fl.clip})`} />
       ))}
+
+      {/* Arctic sea ice pack */}
+      <path d={ARCTIC_ICE_D} className="ice-sheet" opacity={0.6} />
+      {ARCTIC_FLECKS.map((fl) => (
+        <path key={fl.key} d={fl.d} className="ice-fleck" clipPath="url(#clip-arctic-ice)" />
+      ))}
+
+      {/* wandering polar bears on the Antarctic ice */}
+      {ARCTIC_BEARS}
+
+      {/* penguins waddling across the Arctic ice */}
+      {ARCTIC_PENGUINS}
 
       {LAKES.map((l) => (
         <path key={l.id} d={l.d} className="lake" />

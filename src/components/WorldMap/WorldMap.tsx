@@ -2,9 +2,11 @@ import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { pantheons } from "../../data/pantheons";
 import { seaMyths } from "../../data/seaMyths";
+import { landMyths } from "../../data/landMyths";
 import { useMapPanZoom } from "./useMapPanZoom";
 import { landmarkIcons } from "./LandmarkIcons";
 import { seaMythIcons } from "./SeaMythIcons";
+import { landMythIcons } from "./LandMythIcons";
 import { CompassRose, RhumbLines, ParchmentFrame } from "./MapDecorations";
 import { TerrainFeatures } from "./TerrainFeatures";
 import { LAND_PATH } from "./landPaths";
@@ -91,6 +93,32 @@ export function WorldMap() {
 
             <RhumbLines cx={COMPASS_CENTER.x} cy={COMPASS_CENTER.y} />
 
+            {/* latitude lines: equator (0°), tropics (±30°), in the style of
+                portolan charts — dashed ocre lines with period labels. */}
+            <g className="latitude-lines" aria-hidden="true">
+              {[
+                { y: 50, label: "Aequator" },
+                { y: 33.3, label: "XXX° Sept." },
+                { y: 66.7, label: "XXX° Merid." },
+              ].map(({ y, label }) => (
+                <g key={label}>
+                  <line
+                    x1={4} y1={y} x2={96} y2={y}
+                    stroke="#8a6f43" strokeWidth={0.12} strokeDasharray="0.6,0.5"
+                    opacity={0.35}
+                  />
+                  <text
+                    x={2.5} y={y + 0.6}
+                    fill="#5c452a" fontSize={0.9}
+                    fontFamily="var(--font-heading)" fontStyle="italic"
+                    opacity={0.5} textAnchor="end"
+                  >
+                    {label}
+                  </text>
+                </g>
+              ))}
+            </g>
+
             {/* real coastlines (Natural Earth), engraved-chart treatment:
                 graded coastal shading under a hand-inked outline */}
             <g filter="url(#hand-inked)">
@@ -162,6 +190,26 @@ export function WorldMap() {
                 <span className="map-marker__label">
                   <strong>{p.landmarkName}</strong>
                   <em>{p.culture}</em>
+                </span>
+              </Link>
+            );
+          })}
+
+          {landMyths.map((m) => {
+            const markerStyle = {
+              left: `${m.mapPosition.x}%`,
+              top: `${m.mapPosition.y}%`,
+            } as CSSProperties;
+            const Icon = landMythIcons[m.id];
+
+            return (
+              <Link key={m.id} to={`/land-myth/${m.id}`} className="sea-myth-marker" style={markerStyle}>
+                <span className="sea-myth-marker__figure">
+                  {Icon && <Icon className="sea-myth-marker__icon" />}
+                </span>
+                <span className="map-marker__label">
+                  <strong>{m.name}</strong>
+                  <em>{m.culture}</em>
                 </span>
               </Link>
             );
