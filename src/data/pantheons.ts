@@ -14,6 +14,10 @@ import { japaneseGods } from "./gods/japanese";
 import { mesopotamianGods } from "./gods/mesopotamian";
 import { polynesianGods } from "./gods/polynesian";
 import { aboriginalGods } from "./gods/aboriginal";
+import { yorubaGods } from "./gods/yoruba";
+import { akanGods } from "./gods/akan";
+import { dogonGods } from "./gods/dogon";
+import { zuluGods } from "./gods/zulu";
 
 /**
  * mapPosition is a percentage over the stylized world map (0,0 = top-left,
@@ -118,6 +122,62 @@ export const pantheons: Pantheon[] = [
     colorTheme: { primary: "#8a6d2f", secondary: "#3c6b8a", accent: "#c9a24b" },
     mapPosition: { x: 59, y: 35 },
     gods: egyptianGods,
+  },
+  {
+    id: "yoruba",
+    name: "Yoruba",
+    culture: "Yoruba / Orisha",
+    region: "West Africa (Nigeria, Benin)",
+    landmarkName: "The Sacred Grove of Oshun",
+    landmarkBlurb:
+      "A tranquil riverside forest of gnarled trees and shimmering brass, where honey offerings glisten on the stones.",
+    intro:
+      "In the lush forests and winding rivers of West Africa, the Yoruba Orishas serve as Olódùmarè's intermediaries — powerful spirits of thunder, iron, love, and the crossroads. Their vibrant myths, drumming, and dance still pulse through the living traditions of millions across the Atlantic world.",
+    colorTheme: { primary: "#6b2f1d", secondary: "#c9a24b", accent: "#2f7a4f" },
+    mapPosition: { x: 52, y: 41 },
+    gods: yorubaGods,
+  },
+  {
+    id: "akan",
+    name: "Akan",
+    culture: "Akan / Ashanti",
+    region: "West Africa (Ghana, Ivory Coast)",
+    landmarkName: "The Golden Stool of Asante",
+    landmarkBlurb:
+      "A sacred, legend-enshrined stool of solid gold, hidden in the depths of a royal shrine.",
+    intro:
+      "From the verdant Gold Coast rises the pantheon of the Akan — a sky-father Nyame, the earth-mother Asase Yaa, and the cunning spider-trickster Anansi who won back the world's stories. Their proverbs and Adinkra symbols weave wisdom through all of life.",
+    colorTheme: { primary: "#1f4a2f", secondary: "#c9a24b", accent: "#6b2f1d" },
+    mapPosition: { x: 48, y: 41 },
+    gods: akanGods,
+  },
+  {
+    id: "dogon",
+    name: "Dogon",
+    culture: "Dogon",
+    region: "West Africa (Mali)",
+    landmarkName: "The Cliffs of Bandiagara",
+    landmarkBlurb:
+      "A sheer sandstone escarpment dotted with mud-built villages and secret cave shrines.",
+    intro:
+      "High on the Bandiagara escarpment, the Dogon people preserve a cosmology of breathtaking depth: a spiral creation by the god Amma, amphibious Nommo ancestors, and a deep knowledge of the stars that has astounded the world.",
+    colorTheme: { primary: "#8a5a2f", secondary: "#3c5a6b", accent: "#c9a24b" },
+    mapPosition: { x: 50, y: 37 },
+    gods: dogonGods,
+  },
+  {
+    id: "zulu",
+    name: "Zulu",
+    culture: "Zulu / Nguni",
+    region: "Southern Africa (South Africa)",
+    landmarkName: "The Valley of the Kings",
+    landmarkBlurb:
+      "A sweeping valley of rolling green hills dotted with ancestral kraals.",
+    intro:
+      "In the sun-drenched hills of Zululand, the first human Unkulunkulu emerged from a bed of reeds to create the world. The Zulu cosmos is alive with the rainbow goddess Nomkhubulwane, the sky's thunder, and the ever-present spirits of the ancestors who guide the living.",
+    colorTheme: { primary: "#3c1f0a", secondary: "#c9a24b", accent: "#2f6b5c" },
+    mapPosition: { x: 57, y: 64 },
+    gods: zuluGods,
   },
   {
     id: "celtic",

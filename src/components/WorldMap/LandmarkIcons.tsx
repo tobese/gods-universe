@@ -223,6 +223,56 @@ export function AboriginalIcon(props: IconProps) {
   );
 }
 
+export function YorubanIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <circle cx="24" cy="18" r="7" />
+      <rect x="21" y="25" width="6" height="15" />
+      <rect x="10" y="34" width="28" height="4" />
+      <circle cx="14" cy="15" r="2.5" />
+      <circle cx="34" cy="15" r="2.5" />
+    </Icon>
+  );
+}
+
+export function AkanIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <rect x="14" y="12" width="5" height="24" />
+      <rect x="29" y="12" width="5" height="24" />
+      <rect x="10" y="11" width="28" height="5" />
+      <rect x="10" y="31" width="28" height="5" />
+      <circle cx="24" cy="19" r="5" />
+      <circle cx="24" cy="29" r="4" />
+    </Icon>
+  );
+}
+
+export function DogonIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <rect x="12" y="30" width="24" height="8" />
+      <rect x="15" y="22" width="18" height="8" />
+      <rect x="18" y="14" width="12" height="8" />
+      <rect x="22" y="6" width="4" height="8" />
+      <circle cx="24" cy="4" r="2.5" />
+    </Icon>
+  );
+}
+
+export function ZuluIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <rect x="18" y="8" width="4" height="32" />
+      <rect x="26" y="8" width="4" height="32" />
+      <rect x="10" y="14" width="28" height="3" />
+      <rect x="10" y="24" width="28" height="3" />
+      <rect x="10" y="34" width="28" height="3" />
+      <circle cx="24" cy="4" r="3" />
+    </Icon>
+  );
+}
+
 export const landmarkIcons: Record<string, (props: IconProps) => ReactElement> = {
   norse: NorseIcon,
   greek: GreekIcon,
@@ -239,4 +289,8 @@ export const landmarkIcons: Record<string, (props: IconProps) => ReactElement> =
   mesopotamian: MesopotamianIcon,
   polynesian: PolynesianIcon,
   "aboriginal-australian": AboriginalIcon,
+  yoruba: YorubanIcon,
+  akan: AkanIcon,
+  dogon: DogonIcon,
+  zulu: ZuluIcon,
 };
