@@ -9,12 +9,18 @@ interface Transform {
 const MIN_SCALE = 1;
 const MAX_SCALE = 3;
 
+const DRAG_THRESHOLD = 5;
+
 export function useMapPanZoom() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [transform, setTransform] = useState<Transform>({ scale: 1, x: 0, y: 0 });
-  const dragOrigin = useRef<{ pointerX: number; pointerY: number; x: number; y: number } | null>(
-    null,
-  );
+  const dragState = useRef<{
+    pointerX: number;
+    pointerY: number;
+    x: number;
+    y: number;
+    dragging: boolean;
+  } | null>(null);
 
   const clamp = useCallback((t: Transform): Transform => {
     const scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, t.scale));
@@ -41,26 +47,32 @@ export function useMapPanZoom() {
 
   const onPointerDown = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
-      dragOrigin.current = {
+      dragState.current = {
         pointerX: e.clientX,
         pointerY: e.clientY,
         x: transform.x,
         y: transform.y,
+        dragging: false,
       };
-      e.currentTarget.setPointerCapture(e.pointerId);
     },
     [transform.x, transform.y],
   );
 
   const onPointerMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
-      if (!dragOrigin.current) return;
-      const { pointerX, pointerY, x, y } = dragOrigin.current;
+      if (!dragState.current) return;
+      const dx = e.clientX - dragState.current.pointerX;
+      const dy = e.clientY - dragState.current.pointerY;
+      if (!dragState.current.dragging) {
+        if (Math.abs(dx) < DRAG_THRESHOLD && Math.abs(dy) < DRAG_THRESHOLD) return;
+        dragState.current.dragging = true;
+        e.currentTarget.setPointerCapture(e.pointerId);
+      }
       setTransform((prev) =>
         clamp({
           ...prev,
-          x: x + (e.clientX - pointerX),
-          y: y + (e.clientY - pointerY),
+          x: dragState.current!.x + dx,
+          y: dragState.current!.y + dy,
         }),
       );
     },
@@ -68,7 +80,7 @@ export function useMapPanZoom() {
   );
 
   const onPointerUp = useCallback(() => {
-    dragOrigin.current = null;
+    dragState.current = null;
   }, []);
 
   const resetView = useCallback(() => setTransform({ scale: 1, x: 0, y: 0 }), []);
