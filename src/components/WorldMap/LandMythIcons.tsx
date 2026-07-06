@@ -14,16 +14,24 @@ export function YetiIcon(props: IconProps) {
   return (
     <Icon {...props}>
       <g strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18,38 C16,32 18,18 26,12 C29,9.5 35,9.5 38,12 C44,18 46,30 44,38" strokeWidth="2" />
-        <path d="M17,22 C12,20 9,23 11,26 C13,29 16,28 18,26" strokeWidth="1.6" />
-        <path d="M45,22 C50,20 53,23 51,26 C49,29 46,28 44,26" strokeWidth="1.6" />
-        <circle cx="28" cy="22" r="1.4" fill="currentColor" stroke="none" />
-        <circle cx="35" cy="22" r="1.4" fill="currentColor" stroke="none" />
-        <path d="M29.5,27 Q32,30 34.5,27" strokeWidth="1.6" />
-        <path d="M26,15 C27,11 30,10 32,10 C34,10 36,11 37,14" strokeWidth="1.8" />
-        <path d="M22,40 C22,43 24,45 26,44 C28,43 28,40 30,42 C31,43.5 33,44 33,43" strokeWidth="1.6" />
-        <path d="M36,40 C36,43 38,45 40,44 C42,43 42,40 44,42 C45,43.5 47,44 47,43" strokeWidth="1.6" />
-        <path d="M20,38 L20,45 M42,38 L42,45" strokeWidth="1.6" />
+        <path d="M16,38 C12,28 14,15 24,12 C30,10 38,12 42,18 C48,28 50,38 48,44" strokeWidth="2.5" opacity="0.9" />
+        <path d="M15,22 C9,18 9,12 14,10 C17,9 21,11 22,13" strokeWidth="1.8" opacity="0.7" />
+        <path d="M48,22 C53,18 53,12 48,10 C45,9 42,11 40,14" strokeWidth="1.8" opacity="0.7" />
+        <path d="M10,44 C12,40 20,40 22,42 C24,44 22,46 20,45" strokeWidth="2" />
+        <path d="M53,44 C51,40 43,40 41,42 C39,44 41,46 43,45" strokeWidth="2" />
+        <path d="M18,31 C15,28 17,24 20,25 C23,26 22,29 20,31" strokeWidth="1.5" />
+        <path d="M46,31 C48,28 47,24 44,25 C41,26 42,29 44,31" strokeWidth="1.5" />
+        <path d="M14,33 L11,39 M50,33 L53,39" strokeWidth="1.5" />
+        <path d="M18,40 C16,38 18,35 20,36" strokeWidth="1.2" opacity="0.7" />
+        <path d="M46,40 C48,38 47,35 44,36" strokeWidth="1.2" opacity="0.7" />
+        <path d="M28,26 C26,22 24,18 22,16" strokeWidth="1.5" />
+        <path d="M36,26 C38,22 40,18 42,16" strokeWidth="1.5" />
+        <path d="M18,41 C16,43 18,46 20,45" strokeWidth="1.5" />
+        <path d="M46,41 C48,43 47,46 44,45" strokeWidth="1.5" />
+        <path d="M12,37 C10,35 11,32 13,32" strokeWidth="1.3" />
+        <path d="M51,37 C53,35 51,32 49,32" strokeWidth="1.3" />
+        <path d="M22,33 C20,31 21,29 23,29" strokeWidth="1.2" />
+        <path d="M41,33 C39,31 40,29 42,29" strokeWidth="1.2" />
       </g>
     </Icon>
   );
@@ -33,15 +41,15 @@ export function BigfootIcon(props: IconProps) {
   return (
     <Icon {...props}>
       <g strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20,37 C18,24 21,15 28,11 C33,8.5 38,9.5 41,14 C44,19 45,28 43,37" strokeWidth="2" />
-        <circle cx="29" cy="22" r="1.5" fill="currentColor" stroke="none" />
-        <circle cx="36" cy="22" r="1.5" fill="currentColor" stroke="none" />
-        <path d="M30.5,27 Q33,30 35.5,27" strokeWidth="1.6" />
-        <path d="M17,26 L13,37 M46,26 L50,37" strokeWidth="1.8" />
-        <path d="M21,38 L19,45 M42,38 L44,45" strokeWidth="1.7" />
-        <path d="M13,41 L13,45 M50,41 L50,45" strokeWidth="1.5" />
-        <path d="M29,14 C30,11 34,11 35,13" strokeWidth="1.6" />
-        <path d="M26,15 L27,10 M32,14 L33,9 M37,15 L38,11" strokeWidth="1" opacity="0.6" />
+        <path d="M8,44 C5,27 6,13 16,10 C22,8 28,12 30,19 C34,27 34,38 32,46" strokeWidth="6" stroke="#4a3a0e" fill="#8a6d2f" opacity="0.95" />
+        <path d="M30,18 L24,22 C20,19 18,21 18,22" strokeWidth="2" stroke="#3a2a16" />
+        <path d="M34,18 L38,22 C40,19 42,21 42,22" strokeWidth="2" stroke="#3a2a16" />
+        <path d="M10,44 L10,54" strokeWidth="3" stroke="#5c452a" />
+        <path d="M46,44 L46,54" strokeWidth="3" stroke="#5c452a" />
+        <path d="M18,45 C17,42 18,39 21,38" strokeWidth="1.5" />
+        <path d="M42,45 C43,42 42,39 40,38" strokeWidth="1.5" />
+        <path d="M24,38 C22,36 24,34 26,34" strokeWidth="2" />
+        <path d="M40,38 C42,36 41,34 38,34" strokeWidth="2" />
       </g>
     </Icon>
   );
